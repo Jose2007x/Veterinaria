@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Producto - Veterinaria Yoyo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #bdc3c7;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #1e874b;
+        }
+
+        .btn-secondary:hover {
+            background-color: #a5b1b9;
+        }
+
+        .error-message {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <h1>✏️ Editar Producto</h1>
+    </div>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/productos">Volver a Productos</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Modificar información del producto</h2>
+
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/productos/editar/{{ producto._id }}">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" value="{{ producto.nombre }}" required>
+
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" required>{{ producto.descripcion }}</textarea>
+
+        <label for="valor_unitario">Valor Unitario</label>
+        <input type="number" id="valor_unitario" name="valor_unitario" step="0.01" value="{{ producto.valor_unitario }}" required>
+
+        <label for="stock">Stock (máximo 30)</label>
+        <input type="number" id="stock" name="stock" max="30" value="{{ producto.stock }}" required>
+
+        <label for="imagen">URL de Imagen</label>
+        <input type="text" id="imagen" name="imagen" value="{{ producto.imagen }}" required>
+
+        <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
+        <a href="/productos" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+</body>
+</html>
